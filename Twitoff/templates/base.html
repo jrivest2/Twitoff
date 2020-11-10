@@ -23,6 +23,11 @@
       {% endfor %}
      {% endblock %}
     </article>
+    <form method="POST" action="/add">  
+      <input class="form-control input-small" name="text" id="user_add" placeholder="Enter a Username">
+      <button type="submit">Add User</button>
+      <!-- <a href="/add" class="button info">Add a User</a> -->
+    </form>
     <!-- <script src="https://cdn.jsdelivr.net/npm/umbrellajs"/> -->
   </body>
 </html>
