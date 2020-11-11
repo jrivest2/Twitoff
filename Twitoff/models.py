@@ -24,8 +24,8 @@ class User(DB.Model):
             count += tweet.likes
         return count
     
-    def __repr__(self):
-        return "<User: {}'>\n<Likes: {}>'\n<Tweets: {}>".format(self.name,self.total_likes,self.num_tweets)
+    # def __repr__(self):
+    #     return "<User: {}'>\n<Likes: {}>'\n<Tweets: {}>".format(self.name,self.total_likes,self.num_tweets)
 
 class Tweet(DB.Model):
     """Tweet text data - associated with Users Table"""

@@ -11,20 +11,25 @@ TWITTER = tweepy.API(TWITTER_AUTH)
 
 # nlp model
 nlp = spacy.load("my_model")
+
+
 def vectorize_tweet(tweet_text):
     return nlp(tweet_text).vector
 
 
 def add_or_update_user(username):
-    try:    
+    try:  
+        # grabs user from twitter DB  
         twitter_user = TWITTER.get_user(username)
+        # adds/updates user
         db_user = (User.query.get(twitter_user.id)) or User(
             id=twitter_user.id,name=username)
         DB.session.add(db_user)
 
+        # grabs tweets from twitter user
         tweets = twitter_user.timeline(
             count=200, exclude_replies=True, include_rts=False,
-            tweet_mode="extended"
+            tweet_mode="extended", since_id=db_user.newest_tweet_id
         )
 
         if tweets:
@@ -41,3 +46,9 @@ def add_or_update_user(username):
     except Exception as e:
         print("Error processing {}: {}".format(username, e))
         raise e
+
+
+def update_all_users():
+    """Update all Tweets for all Users in the User table."""
+    for user in User.query.all():
+        add_or_update_user(user.name)
