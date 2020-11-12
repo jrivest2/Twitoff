@@ -30,7 +30,7 @@ class User(DB.Model):
 class Tweet(DB.Model):
     """Tweet text data - associated with Users Table"""
     id = DB.Column(DB.BigInteger, primary_key=True) # id column (primary key)
-    text = DB.Column(DB.Unicode(300)) # Tweet text column
+    text = DB.Column(DB.Unicode(250)) # Tweet text column
     vect = DB.Column(DB.PickleType, nullable=False) # 
     user_id = DB.Column(DB.BigInteger, DB.ForeignKey("user.id"), nullable=True)
     user= DB.relationship('User', backref=DB.backref('tweets', lazy=True))
